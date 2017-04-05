@@ -11,6 +11,7 @@ long long int sumOfSquares(int, int);
 //minmax
 void bubbleSort(int *, int);
 bool isMember(int *, int, int);
+bool notMember(int *, int, int);
 void isItPrime(int, int);
 
 int main()
@@ -82,7 +83,15 @@ int main()
 					  	 cout << "YES\n";
 					  else 
 					  	 cout << "NO\n";
-					  //not member
+
+					  cout << "Does the array: "; 
+					       displayArray(array, size, 0);
+					  cout << "have the number 600?\n"; 
+					  if(!notMember(array,size,600))
+					  	 cout << "YES\n";
+					  else 
+					  	 cout << "NO\n";
+
 					  
 					  cout << "\n\nIs it prime:\n";
 					  for(int i = 0; i < size; i++)
@@ -180,7 +189,7 @@ void bubbleSort(int * arr, int s)
 	bubbleSort(arr, s-1);
 }
 
-bool isMember(int *arr, int s, int val) //maybe void? all his functions appear to just output yes/no/whatever
+bool isMember(int *arr, int s, int val) 
 {
 	if(s == 0)
 		return false;
@@ -190,13 +199,54 @@ bool isMember(int *arr, int s, int val) //maybe void? all his functions appear t
  		return isMember(arr,s-1,val);
 }
 
-bool notMember(int *arr, int s, int val)
+bool notMember(int *arr, int s, int val)// returns true if not in list, false if it is found
 {
-	int mid = s / 2;
+	int mid = (s / 2) - 1,//mid index
+	    subSize;
+	int *subArray;
+	bool notFlag; 
 
-	if(s == 0)
+	if(s < 1)
+		return true;
+	else if(s == 1)
+	{	
+		if(arr[0] != val)
+			return true;
+	}
+	else if(arr[mid] == val)
+	{
 		return false;
+	}
+	else if(arr[mid] < val)
+	{	
+		if(mid == 0)
+			return true;
+		subSize = mid;
+		subArray = new int [subSize];
+		for (int i = 0; i < subSize; i++)
+		{
+			subArray[i] = arr[i];
+		}
+		notFlag = notMember(subArray, subSize, val);
+		delete [] subArray;
+		return notFlag;
+	}
+	else //if arr[mid] > val
+	{
+		if(mid == (s-1))
+		{	return true;}
+		subSize = s - mid - 1;
+		subArray = new int [subSize];
+		for(int i = 0; i < subSize; i++)
+		{
+			subArray[i] = arr[ mid + 1 + i];
+		}
+		notFlag = notMember(subArray, subSize, val);
+		delete [] subArray;
+		return notFlag;
+	}
 
+	return true;
 }
 
 void isItPrime(int val, int div)
@@ -210,5 +260,3 @@ void isItPrime(int val, int div)
 	else
 		isItPrime(val, div - 1);
 }
-
-
