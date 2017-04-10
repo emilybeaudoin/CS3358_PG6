@@ -33,7 +33,7 @@ int powerFunction(int, int); //displays the value of the first number in the
 // raised to the 2nd power
 long long int sumOfSquares(int, int); //sums the squares ranging from 0 to the
 // second element in the array
-//minmax
+void minmaxNumber(int *, int, int &, int &);
 void bubbleSort(int *, int); //sorts the array in descending order
 bool isMember(int *, int, int); //searches array for specific number
 bool notMember(int *, int, int); //searches array for specific number
@@ -44,7 +44,9 @@ int main()
 {
 	int size, //takes the size of the array
 		*array, //initialized array
-		number; //holds the number to do operations on
+		number, //holds the number to do operations on
+		min, 
+		max;
 	char choice = 0; //holds user selection
 	srand(time(NULL)); //enables random number generation
 
@@ -122,14 +124,15 @@ int main()
 					  //sums the squares ranging from 0 to the second element
 					  // in the array
 
-					  //minmax call
-					  cout << "\n\nMin Number of ( ";
+					  min = array[0];
+					  max = array[0];
+					  minmaxNumber(array, size, min, max);
+					  cout << "\n\nMin Number of "; 
 					  displayArray(array, size, 0);
-					  cout << ")" << "\nis :";
-
-					  cout << "\nMax Number of ( ";
+					  cout << " is : " << min;
+					  cout << "\nMax Number of ";
 					  displayArray(array, size, 0);
-					  cout << ")" << "\nis :";
+					  cout << " is : " << max;
 
 					  cout << "\n\nSorted array\n";
 					  bubbleSort(array,size);
@@ -277,21 +280,18 @@ long long int sumOfSquares(int x, int index)
 
 
 //******************************************************************************
+void minmaxNumber(int *arr, int s, int &min, int &max)
+{	
+	if(s < 1)
+		return;
+	else if(arr[s-1] < min)
+		min = arr[s-1];
 
-// void minmaxNumber(int *arr, int s, int &min, int &max)
-// {
-// 	int min;
-// 	if(size >= 1)
-// 	{
-// 		if(arr[size] < minmaxNumber(arr, size - 1))
-// 			return arr[size];
-// 		else
-// 			return;
-// 	}
-// 	else
+	minmaxNumber(arr, s-1, min, max);
 
-
-// }
+	if(arr[s-1] > max)
+		max = arr[s-1];
+}
 
 // *****************************************************************************
 // bubbleSort function: sorts the array in descending order.
@@ -374,13 +374,11 @@ bool notMember(int *arr, int s, int val)
 	}
 	else //if arr[mid] > val
 	{
-		if(mid == (s-1))
-		{	return true;}
-		subSize = s - mid - 1; //divides portion of array to search
+		subSize = s - mid - 1;
 		subArray = new int [subSize];
 		for(int i = 0; i < subSize; i++) //fills new array with portion of old
 		{
-			subArray[i] = arr[ mid + 1 + i];
+			subArray[i] = arr[mid + 1 + i];
 		}
 		notFlag = notMember(subArray, subSize, val); //flags when value found
 		delete [] subArray;
