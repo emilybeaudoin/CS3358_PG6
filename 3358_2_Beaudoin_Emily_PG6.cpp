@@ -93,9 +93,9 @@ int main()
 		              	if(!cin)
 		              		cout << "Enter an integer not a char\n";
 		              	else
-                        	cout << "\n*** Invalid Array Size Value ***\n"
-                             	 << "Enter Array Size That is > 4: ";
-					    cin.clear();
+                        		cout << "\n*** Invalid Array Size Value ***\n"
+                             	 	     << "Enter Array Size That is > 4: ";
+					cin.clear();
 				        cin.ignore();
 				        cin >> size;
                       }
