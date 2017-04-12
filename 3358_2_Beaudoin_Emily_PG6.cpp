@@ -33,7 +33,8 @@ int powerFunction(int, int); //displays the value of the first number in the
 // raised to the 2nd power
 long long int sumOfSquares(int, int); //sums the squares ranging from 0 to the
 // second element in the array
-void minmaxNumber(int *, int, int &, int &);
+void minmaxNumber(int *, int, int &, int &); //finds the minimum and maximum
+// value in the array
 void bubbleSort(int *, int); //sorts the array in descending order
 bool isMember(int *, int, int); //searches array for specific number
 bool notMember(int *, int, int); //searches array for specific number
@@ -124,9 +125,10 @@ int main()
 					  //sums the squares ranging from 0 to the second element
 					  // in the array
 
-					  min = array[0];
-					  max = array[0];
+					  min = array[0]; //initialized to arbitary values
+					  max = array[0]; //initialized to arbitary values
 					  minmaxNumber(array, size, min, max);
+				          //finds minimum and maximum values in the array
 					  cout << "\n\nMin Number of "; 
 					  displayArray(array, size, 0);
 					  cout << " is : " << min;
@@ -276,21 +278,24 @@ long long int sumOfSquares(int x, int index)
 // minmaxNumber function: searches for the minimum and maximum values stored in
 // the array.
 //
-// TO BE CONTINUED$$$$$$$$$$$$$$$$$$$$$$$$$$@@@@@@@@@@@@@@&&&&&&&&&&&&&&&&&&
-
-
+// arr - represents the array name.
+// s - represents the size of the list.
+// min - represents the minimum value found in the array.
+// max - represents the maximum value found in the array.
 //******************************************************************************
+
 void minmaxNumber(int *arr, int s, int &min, int &max)
 {	
-	if(s < 1)
+	if(s < 1) //base case
 		return;
 	else if(arr[s-1] < min)
-		min = arr[s-1];
+		min = arr[s-1]; //resets minimum value found in the array
 
 	minmaxNumber(arr, s-1, min, max);
+	//decrements the position in the array for traversal
 
 	if(arr[s-1] > max)
-		max = arr[s-1];
+		max = arr[s-1]; //resets maximum value found in the array
 }
 
 // *****************************************************************************
