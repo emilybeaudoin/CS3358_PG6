@@ -90,8 +90,11 @@ int main()
 		              }
 
 		              while(size < 4){
-                        cout << "\n*** Invalid Array Size Value ***\n"
-                             << "Enter Array Size That is > 4: ";
+		              	if(!cin)
+		              		cout << "Enter an integer not a char\n";
+		              	else
+                        	cout << "\n*** Invalid Array Size Value ***\n"
+                             	 << "Enter Array Size That is > 4: ";
 					    cin.clear();
 				        cin.ignore();
 				        cin >> size;
